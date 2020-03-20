@@ -53,7 +53,7 @@ class afterAdd{
                 
                 console.log(newUser);
                 
-         fetch(`http://localhost:5000/api/savedata`, {
+         fetch(`http://localhost:5000/CUops/savedata`, {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',

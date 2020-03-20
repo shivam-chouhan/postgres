@@ -2,7 +2,7 @@ import {DataType} from "./interface.js";
 import {objUserTable } from "./userView.js";
 import { addEvent } from "./ButtonsAction.js";
 
-export let urlData = 'http://localhost:5000/api/users'
+export let urlData = 'http://localhost:5000/getTable/users'
 
 export async function dataFetch(){
     let users:DataType[]=  await fetch(urlData)

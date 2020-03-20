@@ -33,7 +33,7 @@ export class UserTable{
 
     let table :HTMLTableElement= document.getElementById("userData") as HTMLTableElement;
     let current:number = objUserTable.currentRow(row);
-    let deleteUrl = `http://localhost:5000/api/users${idNo}`;
+    let deleteUrl = `http://localhost:5000/deleteRow/users${idNo}`;
      fetch(deleteUrl)
      .catch((error) => {
         console.error('Error:', error);});
@@ -146,7 +146,7 @@ export class UserTable{
 
 
 
-        fetch(`http://localhost:5000/api/updateuser${users[ID].id}`, {
+        fetch(`http://localhost:5000/CUops/updateuser${users[ID].id}`, {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',

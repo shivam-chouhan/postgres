@@ -43,7 +43,7 @@ class afterAdd {
                 "role": rollno
             };
             console.log(newUser);
-            fetch(`http://localhost:5000/api/savedata`, {
+            fetch(`http://localhost:5000/CUops/savedata`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

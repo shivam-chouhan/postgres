@@ -27,7 +27,7 @@ export class UserTable {
     async deleteRecord(row, idNo) {
         let table = document.getElementById("userData");
         let current = objUserTable.currentRow(row);
-        let deleteUrl = `http://localhost:5000/api/users${idNo}`;
+        let deleteUrl = `http://localhost:5000/deleteRow/users${idNo}`;
         fetch(deleteUrl)
             .catch((error) => {
             console.error('Error:', error);
@@ -124,7 +124,7 @@ export class UserTable {
             document.getElementsByClassName("element" + rowNumber)[3].innerHTML = email;
             document.getElementsByClassName("element" + rowNumber)[4].innerHTML = phone;
             document.getElementsByClassName("element" + rowNumber)[5].innerHTML = address;
-            fetch(`http://localhost:5000/api/updateuser${users[ID].id}`, {
+            fetch(`http://localhost:5000/CUops/updateuser${users[ID].id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
