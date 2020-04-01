@@ -1,4 +1,4 @@
-export interface DataType{
+export interface DataTypeOfUser{
     id:number;
     first_name : string;
     middle_name:string;
