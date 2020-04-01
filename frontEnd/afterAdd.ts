@@ -13,6 +13,8 @@ class afterAdd{
       let rowNumber= users.length;
         let result = await objValidation.formValidate(rowElement,rowNumber);
         let selectRole:HTMLSelectElement = document.getElementById("drop")as HTMLSelectElement;
+        let selectCustomer:HTMLSelectElement = document.getElementById("drop1")as HTMLSelectElement;
+        let customerData =selectCustomer.value;
         let roleData = selectRole.value;
         if(result == undefined)
         {
@@ -39,15 +41,26 @@ class afterAdd{
                 else{
                     rollno = 2;
                 }
+                let customerno;
+        if(customerData=='AMAZON'){
+            customerno = 0;
+        }
+        else if(customerData=='GOOGLE'){
+            customerno = 1;
+        }
+        else {
+            customerno = 2;
+        }
                 
                 let newUser = {
-                    "first_name" : firstName,
-                    "middle_name" : middleName,
-                    "last_name": lastName,
-                    "email" : email,
-                    "phone": phone,
-                    "address": address,
-                    "role" : rollno
+                    "first_name" : firstName.trim(),
+                    "middle_name" : middleName.trim(),
+                    "last_name": lastName.trim(),
+                    "email" : email.trim(),
+                    "phone": phone.trim(),
+                    "address": address.trim(),
+                    "role_id" : rollno,
+                    "customer_id":customerno
                 }
                 
                 

@@ -1,4 +1,4 @@
-import { Role } from "./enum.js";
+import { Role, Customers } from "./enum.js";
 import { dataFetch, urlData } from "./DataFetch.js";
 import { addEvent, removeEvent } from "./ButtonsAction.js";
 import { objValidation } from "./formValidation.js";
@@ -16,7 +16,7 @@ export class UserTable {
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].first_name}</span>`;
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].middle_name}</span>`;
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].last_name}</span>`;
-            row.insertCell().innerHTML = `<span id = "customer${users[i].customer_id}"> ${[users[i].name]}</span>`;
+            row.insertCell().innerHTML = `<span id = "customer${users[i].id}"> ${Customers[users[i].customer_id]}</span>`;
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].email}</span>`;
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].phone}</span>`;
             row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].role_id]}</span>`;
@@ -47,7 +47,7 @@ export class UserTable {
         let deleteButton = document.getElementById("delete" + rowNumber);
         deleteButton.setAttribute("value", "CANCEL");
         deleteButton.onclick = function () {
-            objUserTable.cancel(cloneData, rowNumber, roleData);
+            objUserTable.cancel(cloneData, rowNumber, roleData, customerData);
         };
         for (let i = 0; i < 6; i++) {
             let selectedElements = document.getElementsByClassName("element" + rowNumber)[i];
@@ -55,16 +55,21 @@ export class UserTable {
             selectedElements.innerHTML = `<input class = "inputData" type = "text" placeholder ="Enter the Text"  value = "${cloneData[i]}">`;
         }
         let roleOption = document.getElementById("role" + rowNumber);
+        let customerOption = document.getElementById("customer" + rowNumber);
+        let customerData = customerOption.innerHTML;
+        customerOption.innerHTML = `<select id = "drop1"><option>${customerData}</option><option>AMAZON</option><option>GOOGLE</option><option>UDEMY</option></select>`;
         let roleData = roleOption.innerHTML;
         roleOption.innerHTML = `<select id ="drop"><option>${roleData}</option><option>ADMIN</option><option>DEVELOPER</option><option>MANAGER</option></select>`;
     }
-    cancel(cloneData, rowNumber, roleData) {
+    cancel(cloneData, rowNumber, roleData, customerData) {
         for (let i = 0; i < 6; i++) {
             let selectedElements = document.getElementsByClassName("element" + rowNumber)[i];
             selectedElements.innerHTML = cloneData[i];
         }
         let role = document.getElementById("role" + rowNumber);
+        let customer = document.getElementById("customer" + rowNumber);
         role.innerHTML = roleData;
+        customer.innerHTML = customerData;
         let editButton = document.getElementById("edit" + rowNumber);
         editButton.setAttribute("value", "EDIT");
         editButton.removeAttribute('click');
@@ -82,14 +87,18 @@ export class UserTable {
     async saveRecord({ rowElement, rowNumber, cloneData }) {
         let result = await objValidation.formValidate(rowElement, rowNumber);
         let selectRole = document.getElementById("drop");
+        let selectCustomer = document.getElementById("drop1");
         let roleData = selectRole.value;
+        let customerData = selectCustomer.value;
         let role = document.getElementById("role" + rowNumber);
+        let customer = document.getElementById("customer" + rowNumber);
         if (result == undefined) {
             objUserTable.sameRecord(rowElement, rowNumber);
             return;
         }
         else {
             role.innerHTML = roleData;
+            customer.innerHTML = customerData;
             error.style.display = "none";
             let users = await fetch(urlData)
                 .then(resp => { return (resp.json()); });
@@ -110,6 +119,16 @@ export class UserTable {
             else {
                 rollno = 2;
             }
+            let customerno;
+            if (customerData == 'AMAZON') {
+                customerno = 0;
+            }
+            else if (customerData == 'GOOGLE') {
+                customerno = 1;
+            }
+            else {
+                customerno = 2;
+            }
             let updateuser = {
                 "first_name": firstName,
                 "middle_name": middleName,
@@ -117,7 +136,8 @@ export class UserTable {
                 "email": email,
                 "phone": phone,
                 "address": address,
-                "role": rollno
+                "role_id": rollno,
+                "customer_id": customerno
             };
             document.getElementsByClassName("element" + rowNumber)[0].innerHTML = firstName;
             document.getElementsByClassName("element" + rowNumber)[1].innerHTML = middleName;

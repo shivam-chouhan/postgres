@@ -1,5 +1,5 @@
 import { DataType } from "./interface.js";
-import { Role } from "./enum.js";
+import { Role, Customers } from "./enum.js";
 import {dataFetch, urlData } from "./DataFetch.js";
 import { addEvent,removeEvent} from "./ButtonsAction.js";
 import { objValidation } from "./formValidation.js";
@@ -20,7 +20,7 @@ export class UserTable{
            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].first_name}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].middle_name}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].last_name}</span>`
-                 row.insertCell().innerHTML = `<span id = "customer${users[i].customer_id}"> ${[users[i].name]}</span>`
+                 row.insertCell().innerHTML = `<span id = "customer${users[i].id}"> ${Customers[users[i].customer_id]}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].email}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].phone}</span>`
                  row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].role_id]}</span>`
@@ -56,7 +56,7 @@ export class UserTable{
        let deleteButton:HTMLButtonElement = document.getElementById("delete"+rowNumber) as HTMLButtonElement;
        deleteButton.setAttribute("value","CANCEL");
        deleteButton.onclick = function(){
-           objUserTable.cancel(cloneData,rowNumber,roleData);
+           objUserTable.cancel(cloneData,rowNumber,roleData,customerData);
        }
        for(let i=0;i<6;i++)
        {
@@ -65,17 +65,22 @@ export class UserTable{
            selectedElements.innerHTML = `<input class = "inputData" type = "text" placeholder ="Enter the Text"  value = "${cloneData[i]}">`
        }
        let roleOption:HTMLTableRowElement = document.getElementById("role"+rowNumber) as HTMLTableRowElement;
+       let customerOption:HTMLTableRowElement = document.getElementById("customer"+rowNumber) as HTMLTableRowElement;
+       let customerData = customerOption.innerHTML;
+       customerOption.innerHTML = `<select id = "drop1"><option>${customerData}</option><option>AMAZON</option><option>GOOGLE</option><option>UDEMY</option></select>`
        let roleData=roleOption.innerHTML;
        roleOption.innerHTML=`<select id ="drop"><option>${roleData}</option><option>ADMIN</option><option>DEVELOPER</option><option>MANAGER</option></select>`
    }
-   cancel(cloneData:string[], rowNumber:number,roleData:string){
+   cancel(cloneData:string[], rowNumber:number,roleData:string, customerData:string){
        for(let i=0;i<6;i++)
        {
            let selectedElements = document.getElementsByClassName("element"+rowNumber)[i];
            selectedElements.innerHTML = cloneData[i];
        }
        let role :HTMLTableRowElement= document.getElementById("role"+rowNumber)as HTMLTableRowElement;
+       let customer:HTMLTableRowElement = document.getElementById("customer"+rowNumber) as HTMLTableRowElement;
        role.innerHTML = roleData;
+       customer.innerHTML = customerData;
        let editButton :HTMLButtonElement=document.getElementById("edit"+rowNumber) as HTMLButtonElement;
        editButton.setAttribute("value", "EDIT");
        editButton.removeAttribute('click')
@@ -93,8 +98,11 @@ export class UserTable{
    async saveRecord({ rowElement,rowNumber, cloneData }: {  rowElement:Node;rowNumber: number; cloneData: string[]; }){
        let result = await objValidation.formValidate(rowElement,rowNumber);
        let selectRole:HTMLSelectElement = document.getElementById("drop")as HTMLSelectElement;
+       let selectCustomer:HTMLSelectElement = document.getElementById("drop1")as HTMLSelectElement;
        let roleData = selectRole.value;
+       let customerData =selectCustomer.value;
        let role :HTMLTableRowElement= document.getElementById("role"+rowNumber) as HTMLTableRowElement;
+       let customer:HTMLTableRowElement = document.getElementById("customer"+rowNumber) as HTMLTableRowElement;
        if(result == undefined)
        {
             objUserTable.sameRecord(rowElement,rowNumber);
@@ -102,6 +110,7 @@ export class UserTable{
         }
         else{
         role.innerHTML = roleData;
+        customer.innerHTML = customerData;
         error.style.display = "none";
         let users:DataType[] =  await fetch(urlData)
         .then(resp=>{return(resp.json())})
@@ -125,6 +134,16 @@ export class UserTable{
         else{
              rollno = 2;
         }
+        let customerno;
+        if(customerData=='AMAZON'){
+            customerno = 0;
+        }
+        else if(customerData=='GOOGLE'){
+            customerno = 1;
+        }
+        else {
+            customerno = 2;
+        }
 
         let updateuser = {
             "first_name" : firstName,
@@ -133,7 +152,8 @@ export class UserTable{
             "email" : email,
             "phone": phone,
             "address": address,
-            "role": rollno
+            "role_id": rollno,
+            "customer_id":customerno
         }
 
 

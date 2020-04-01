@@ -25,6 +25,7 @@ addUserBtn.onclick = async function(){
       row.insertCell().innerHTML=`<input type ="text" placeholder = "Enter the first name" class = "inputData">`
       row.insertCell().innerHTML=`<input type ="text" placeholder = "Enter the middle name" class = "inputData">`
       row.insertCell().innerHTML=`<input type ="text" placeholder = "Enter the last name" class = "inputData">`
+      row.insertCell().innerHTML = `<select id = "drop1"><option>AMAZON</option><option>GOOGLE</option><option>UDEMY</option></select>`
       row.insertCell().innerHTML=`<input type ="text" placeholder = "Enter the email" class = "inputData">`
       row.insertCell().innerHTML=`<input type ="text" placeholder = "Enter the phone number" class = "inputData">`
       row.insertCell().innerHTML=`<select id ="drop"><option>ADMIN</option><option>DEVELOPER</option><option>MANAGER</option></select>`
