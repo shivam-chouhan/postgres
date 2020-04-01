@@ -60,13 +60,6 @@ class afterAdd{
             },
             body: JSON.stringify(newUser),
           })
-          .then((response) => response.json())
-          .then((addUser) => {
-            console.log('Success')
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
         addUserBtn.disabled=false;
         (document.getElementById("refreshData")!as HTMLButtonElement).disabled = false;
          }

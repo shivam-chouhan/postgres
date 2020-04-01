@@ -35,8 +35,6 @@ export class UserTable{
     let current:number = objUserTable.currentRow(row);
     let deleteUrl = `http://localhost:5000/deleteRow/getUsers/${idNo}`;
      fetch(deleteUrl)
-     .catch((error) => {
-        console.error('Error:', error);});
      table.deleteRow(current);
     
  }
@@ -153,13 +151,6 @@ export class UserTable{
   },
   body: JSON.stringify(updateuser),
 })
-.then((response) => response.json())
-.then((addUser) => {
-  console.log('Success')
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
        let saveButton:HTMLButtonElement = document.getElementById("edit"+rowNumber) as HTMLButtonElement;
        saveButton.setAttribute("value", "EDIT");
        let deleteButton:HTMLButtonElement=document.getElementById("delete"+rowNumber)as HTMLButtonElement;
