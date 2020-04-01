@@ -11,7 +11,7 @@ router.post('/updateuser:id', (req, res) => {
     const updMember = req.body;
     pool.query(`
   UPDATE users
-  SET(first_name, middle_name, last_name, email, phone, role, address, customer_id)=('${updMember.first_name}','${updMember.middle_name}','${updMember.last_name}','${updMember.email}',' ${updMember.phone}','${updMember.role}','${updMember.address}','${updMember.customer_id}')
+  SET(first_name, middle_name, last_name, email, phone, role_id, address, customer_id)=('${updMember.first_name}','${updMember.middle_name}','${updMember.last_name}','${updMember.email}',' ${updMember.phone}','${updMember.role_id}','${updMember.address}','${updMember.customer_id}')
     WHERE 
     id = ${req.params.id};
   `);
