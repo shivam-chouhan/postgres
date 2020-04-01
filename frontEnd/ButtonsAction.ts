@@ -6,8 +6,8 @@ loadDataBtn.onclick = dataFetch;
 let refreshBtn :HTMLButtonElement = document.getElementById("refreshData")as HTMLButtonElement;
 refreshBtn.onclick = objUserTable.refreshTable;
 
-export let clickable = function(e:MouseEvent){
-    objFindID.listen(e);
+export let clickable = function(event:MouseEvent){
+    objFindID.listen(event);
 }
 
 export let tableWhole:HTMLTableElement = document.getElementById("table")as HTMLTableElement;
@@ -20,11 +20,10 @@ export function removeEvent(){
 
 class FindID{
      listen(event:MouseEvent){
-        let eid = (event.target as HTMLInputElement).id;
-        if(eid)
+        let elementId = (event.target as HTMLInputElement).id;
+        if(elementId)
         {
-        objClassGetID.passID(eid);
-        console.log(eid)
+        objClassGetID.passID(elementId);
 }}
 }
 export let objFindID = new FindID();

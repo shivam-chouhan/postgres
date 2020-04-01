@@ -1,5 +1,5 @@
 import { Role } from "./enum.js";
-export interface DataType {
+export interface DataTypeOfUser {
     first_name: string;
     middle_name:string;
     last_name : string;

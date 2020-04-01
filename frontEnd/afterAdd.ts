@@ -2,12 +2,12 @@ import { objValidation } from "./formValidation.js";
 import { objUserTable } from "./userView.js";
 import { error } from "./showError.js";
 import { addUserBtn } from "./addUser.js";
-import { DataType } from "./interface.js";
-import { urlData, dataFetch } from "./DataFetch.js";
+import { DataTypeOfUser } from "./interface.js";
+import { urlData } from "./DataFetch.js";
 
 class afterAdd{
     async saveFunc(rowElement:Node){
-         let users:DataType[] =  await fetch(urlData)
+         let users:DataTypeOfUser[] =  await fetch(urlData)
       .then(resp=>{return(resp.json())})
 
       let rowNumber= users.length;
@@ -66,20 +66,13 @@ class afterAdd{
                 
                 console.log(newUser);
                 
-         fetch(`http://localhost:5000/CUops/savedata`, {
+         fetch(`http://localhost:5000/CUops/saveUser`, {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(newUser),
           })
-          .then((response) => response.json())
-          .then((addUser) => {
-            console.log('Success')
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
         addUserBtn.disabled=false;
         (document.getElementById("refreshData")!as HTMLButtonElement).disabled = false;
          }
