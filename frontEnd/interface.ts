@@ -1,5 +1,5 @@
 import { Role } from "./enum.js";
-export interface DataType {
+export interface DataTypeOfUser {
     first_name: string;
     middle_name:string;
     last_name : string;
@@ -8,8 +8,6 @@ export interface DataType {
     role:Role;
     address:string;
     id : number
-    // length:number;
-    // data : Array<string>;
 }
 export interface validateVar{
     firstName: string;

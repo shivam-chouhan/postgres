@@ -1,4 +1,4 @@
-import { DataType } from "./interface.js";
+import { DataTypeOfUser } from "./interface.js";
 import { Role } from "./enum.js";
 import {dataFetch, urlData } from "./DataFetch.js";
 import { addEvent,removeEvent} from "./ButtonsAction.js";
@@ -8,7 +8,7 @@ import { addUserBtn, objAddUser } from "./addUser.js";
 
 
 export class UserTable{
-    getUsers(users:DataType[]){
+    getUsers(users:DataTypeOfUser[]){
        document.getElementById("loadData")!.style.display="none";
        document.getElementById("refreshData")!.style.display="block";
        document.getElementById("table")!.style.visibility="visible";
@@ -33,7 +33,7 @@ export class UserTable{
 
     let table :HTMLTableElement= document.getElementById("userData") as HTMLTableElement;
     let current:number = objUserTable.currentRow(row);
-    let deleteUrl = `http://localhost:5000/deleteRow/users${idNo}`;
+    let deleteUrl = `http://localhost:5000/deleteRow/getUsers/${idNo}`;
      fetch(deleteUrl)
      .catch((error) => {
         console.error('Error:', error);});
@@ -102,7 +102,7 @@ export class UserTable{
         else{
         role.innerHTML = roleData;
         error.style.display = "none";
-        let users:DataType[] =  await fetch(urlData)
+        let users:DataTypeOfUser[] =  await fetch(urlData)
         .then(resp=>{return(resp.json())})
         let ID = objUserTable.currentRow(rowElement);
 
@@ -146,7 +146,7 @@ export class UserTable{
 
 
 
-        fetch(`http://localhost:5000/CUops/updateuser${users[ID].id}`, {
+        fetch(`http://localhost:5000/CUops/updateUser/${users[ID].id}`, {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',
