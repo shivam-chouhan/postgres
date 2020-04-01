@@ -1,0 +1,62 @@
+[
+    {
+        "id":0,
+        "firstName":"Kartik",
+        "middleName": "" , 
+        "lastName" : "Grover",
+        "email": "grover@abc.com",
+        "phone": "7347666700",
+        "role" : 1,
+        "address": "234/23"
+    },
+    {
+        "id":1,
+        "firstName" : "Gary",
+        "middleName" : "",
+        "lastName" : "malhotra",
+        "email" : "gmalhotra@abc.com",
+        "phone" : "7767676769",
+        "role" : 1,
+        "address" : "634/73"
+    },
+    {
+        "id":2,
+        "firstName" : "Vidyut",
+        "middleName" : "",
+        "lastName" : "Pandita",
+        "email" : "vidyut@abc.com",
+        "phone" : "7397235927",
+        "role" : 2,
+        "address" : "635/93"
+    },
+    {
+        "id":3,
+        "firstName" : "navidar",
+        "middleName" : "",
+        "lastName" : "singh",
+        "email" : "gmalhotra@abc.com",
+        "phone" : "7767676769",
+        "role" : 2,
+        "address" : "634/73"
+    },
+    {
+        "id":4,
+        "firstName" : "bulakar",
+        "middleName" : "",
+        "lastName" : "bhagjana",
+        "email" : "gmalhotra@abc.com",
+        "phone" : "7767676769",
+        "role" : 0,
+        "address" : "634/73"
+    },
+    {
+        "id":5,
+        "firstName" : "tasty",
+        "middleName" : "",
+        "lastName" : "chicken",
+        "email" : "gmalhotra@abc.com",
+        "phone" : "7767676769",
+        "role" : 1,
+        "address" : "634/73"
+    }
+]

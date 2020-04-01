@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "firstName": "",
+    "middleName": "",
+    "lastName": "",
+    "email": "",
+    "phone": "",
+    "role": 0,
+    "address": ""
+  },
+  {
+    "id": 1,
+    "firstName": "",
+    "middleName": "",
+    "lastName": "",
+    "email": "",
+    "phone": "",
+    "role": 0,
+    "address": ""
+  }
+]
