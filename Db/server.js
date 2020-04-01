@@ -13,7 +13,7 @@ export const pool = new Pool({
     host: 'localhost',
     port: 5432,
     password: pass(),
-    database: 'users_table',
+    database: 'try1',
 });
 const app = express();
 app.use(function (req, res, next) {
