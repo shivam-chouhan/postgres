@@ -6,6 +6,7 @@ export interface DataType{
     phone:string;
     email:string;
     address:string;
-    role:number;
+    role_id:number;
+    customer_id:number;
 
 }
