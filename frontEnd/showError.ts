@@ -1,47 +1,38 @@
 export let error = document.createElement("td");
 error.setAttribute("class", "invalid");
 class ShowError{
-    passPhone(phone:HTMLInputElement){
-        let phoneField = phone.parentNode?.parentNode as HTMLTableRowElement;
+    passError(errorField:HTMLInputElement ,content:string){
+        let errField = errorField.parentNode?.parentNode as HTMLTableRowElement;
+        if(content == 'phone'){
         error.textContent = "Enter the correct Phone Number"
         error.style.display = "none";
-        phoneField.appendChild(error);
+        errField.appendChild(error);
         error.style.display = "block";
-
-    }
-    passFirst(firstName:HTMLInputElement){
-        let nameField = firstName.parentNode?.parentNode as HTMLTableRowElement;
-        error.textContent = "Enter the correct First Name"
+        }
+        else if(content == 'firstName'){
+            error.textContent = "Enter the correct First Name"
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";   
+        }
+        else if(content =='middleName'){
+            error.textContent = "Enter the correct Middle Name"
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";  
+        }
+        else if(content=='lastName'){
+            error.textContent = "Enter the correct Last Name"
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";  
+        }
+        else if(content =='email'){
+            error.textContent = "Enter the correct Email"
         error.style.display = "none";
-        nameField.appendChild(error);
+        errField.appendChild(error);
         error.style.display = "block";
-
-    }
-    passMiddle(middleName:HTMLInputElement){
-        let nameField = middleName.parentNode?.parentNode as HTMLTableRowElement;
-        error.textContent = "Enter the correct Middle Name"
-        error.style.display = "none";
-        nameField.appendChild(error);
-        error.style.display = "block";
-
-
-    }
-    passLast(lastName:HTMLInputElement){
-        let nameField = lastName.parentNode?.parentNode as HTMLTableRowElement;
-        error.textContent = "Enter the correct Last Name"
-        error.style.display = "none";
-        nameField.appendChild(error);
-        error.style.display = "block";
-
-
-    }
-    passEmail(email:HTMLInputElement){
-        let emailField = email.parentNode?.parentNode as HTMLTableRowElement;
-        error.textContent = "Enter the correct Email"
-        error.style.display = "none";
-        emailField.appendChild(error);
-        error.style.display = "block";
-
+        }
 
     }
 }

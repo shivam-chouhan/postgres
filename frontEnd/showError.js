@@ -1,40 +1,38 @@
 export let error = document.createElement("td");
 error.setAttribute("class", "invalid");
 class ShowError {
-    passPhone(phone) {
-        let phoneField = phone.parentNode?.parentNode;
-        error.textContent = "Enter the correct Phone Number";
-        error.style.display = "none";
-        phoneField.appendChild(error);
-        error.style.display = "block";
-    }
-    passFirst(firstName) {
-        let nameField = firstName.parentNode?.parentNode;
-        error.textContent = "Enter the correct First Name";
-        error.style.display = "none";
-        nameField.appendChild(error);
-        error.style.display = "block";
-    }
-    passMiddle(middleName) {
-        let nameField = middleName.parentNode?.parentNode;
-        error.textContent = "Enter the correct Middle Name";
-        error.style.display = "none";
-        nameField.appendChild(error);
-        error.style.display = "block";
-    }
-    passLast(lastName) {
-        let nameField = lastName.parentNode?.parentNode;
-        error.textContent = "Enter the correct Last Name";
-        error.style.display = "none";
-        nameField.appendChild(error);
-        error.style.display = "block";
-    }
-    passEmail(email) {
-        let emailField = email.parentNode?.parentNode;
-        error.textContent = "Enter the correct Email";
-        error.style.display = "none";
-        emailField.appendChild(error);
-        error.style.display = "block";
+    passError(errorField, content) {
+        let errField = errorField.parentNode?.parentNode;
+        if (content == 'phone') {
+            error.textContent = "Enter the correct Phone Number";
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";
+        }
+        else if (content == 'firstName') {
+            error.textContent = "Enter the correct First Name";
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";
+        }
+        else if (content == 'middleName') {
+            error.textContent = "Enter the correct Middle Name";
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";
+        }
+        else if (content == 'lastName') {
+            error.textContent = "Enter the correct Last Name";
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";
+        }
+        else if (content == 'email') {
+            error.textContent = "Enter the correct Email";
+            error.style.display = "none";
+            errField.appendChild(error);
+            error.style.display = "block";
+        }
     }
 }
 export let objShowError = new ShowError();

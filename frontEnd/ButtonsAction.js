@@ -5,8 +5,8 @@ let loadDataBtn = document.getElementById("loadData");
 loadDataBtn.onclick = dataFetch;
 let refreshBtn = document.getElementById("refreshData");
 refreshBtn.onclick = objUserTable.refreshTable;
-export let clickable = function (e) {
-    objFindID.listen(e);
+export let clickable = function (event) {
+    objFindID.listen(event);
 };
 export let tableWhole = document.getElementById("table");
 export function addEvent() {
@@ -17,10 +17,9 @@ export function removeEvent() {
 }
 class FindID {
     listen(event) {
-        let eid = event.target.id;
-        if (eid) {
-            objClassGetID.passID(eid);
-            console.log(eid);
+        let elementId = event.target.id;
+        if (elementId) {
+            objClassGetID.passID(elementId);
         }
     }
 }

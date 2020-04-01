@@ -13,13 +13,13 @@ export class UserTable {
         let tableData = document.getElementById("userData");
         for (let i = 0; i < users.length; i++) {
             let row = tableData.insertRow();
-            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].first_name}</span>`;
-            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].middle_name}</span>`;
-            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].last_name}</span>`;
-            row.insertCell().innerHTML = `<span id = "customer${users[i].id}"> ${Customers[users[i].customer_id]}</span>`;
+            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].firstName}</span>`;
+            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].middleName}</span>`;
+            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].lastName}</span>`;
+            row.insertCell().innerHTML = `<span id = "customer${users[i].id}"> ${Customers[users[i].customerId]}</span>`;
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].email}</span>`;
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].phone}</span>`;
-            row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].role_id]}</span>`;
+            row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].roleId]}</span>`;
             row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].address}</span>`;
             row.insertCell().innerHTML = `<input type = "button" class = "w3-button" id = "edit${users[i].id}" value = "EDIT" >`;
             row.insertCell().innerHTML = `<input type = "button" class = "w3-button deleteBtn" id = "delete${users[i].id}" value = "DELETE" >`;
@@ -28,11 +28,8 @@ export class UserTable {
     async deleteRecord(row, idNo) {
         let table = document.getElementById("userData");
         let current = objUserTable.currentRow(row);
-        let deleteUrl = `http://localhost:5000/deleteRow/users${idNo}`;
-        fetch(deleteUrl)
-            .catch((error) => {
-            console.error('Error:', error);
-        });
+        let deleteUrl = `http://localhost:5000/deleteRow/deleteUser/${idNo}`;
+        fetch(deleteUrl);
         table.deleteRow(current);
     }
     editRecord(rowElement, rowNumber) {
@@ -41,7 +38,7 @@ export class UserTable {
         let editButton = document.getElementById("edit" + rowNumber);
         editButton.setAttribute("value", "SAVE");
         async function pass() {
-            await objUserTable.saveRecord({ rowElement, rowNumber, cloneData });
+            await objUserTable.saveRecord({ rowElement, rowNumber });
         }
         editButton.onclick = pass;
         let deleteButton = document.getElementById("delete" + rowNumber);
@@ -84,8 +81,8 @@ export class UserTable {
         let currentRow = rowElement.parentNode.parentNode.rowIndex - 1;
         return currentRow;
     }
-    async saveRecord({ rowElement, rowNumber, cloneData }) {
-        let result = await objValidation.formValidate(rowElement, rowNumber);
+    async saveRecord({ rowElement, rowNumber }) {
+        let result = await objValidation.formValidate();
         let selectRole = document.getElementById("drop");
         let selectCustomer = document.getElementById("drop1");
         let roleData = selectRole.value;
@@ -111,33 +108,33 @@ export class UserTable {
             let address = document.getElementsByClassName("inputData")[5].value;
             let rollno;
             if (roleData == 'ADMIN') {
-                rollno = 0;
+                rollno = Role.ADMIN;
             }
             else if (roleData == "DEVELOPER") {
-                rollno = 1;
+                rollno = Role.DEVELOPER;
             }
             else {
-                rollno = 2;
+                rollno = Role.MANAGER;
             }
             let customerno;
             if (customerData == 'AMAZON') {
-                customerno = 0;
+                customerno = Customers.AMAZON;
             }
             else if (customerData == 'GOOGLE') {
-                customerno = 1;
+                customerno = Customers.GOOGLE;
             }
             else {
-                customerno = 2;
+                customerno = Customers.UDEMY;
             }
             let updateuser = {
-                "first_name": firstName,
-                "middle_name": middleName,
-                "last_name": lastName,
+                "firstName": firstName,
+                "middleName": middleName,
+                "lastName": lastName,
                 "email": email,
                 "phone": phone,
                 "address": address,
-                "role_id": rollno,
-                "customer_id": customerno
+                "roleId": rollno,
+                "customerId": customerno
             };
             document.getElementsByClassName("element" + rowNumber)[0].innerHTML = firstName;
             document.getElementsByClassName("element" + rowNumber)[1].innerHTML = middleName;
@@ -145,19 +142,12 @@ export class UserTable {
             document.getElementsByClassName("element" + rowNumber)[3].innerHTML = email;
             document.getElementsByClassName("element" + rowNumber)[4].innerHTML = phone;
             document.getElementsByClassName("element" + rowNumber)[5].innerHTML = address;
-            fetch(`http://localhost:5000/CUops/updateuser${users[ID].id}`, {
+            fetch(`http://localhost:5000/CUops/updateUser/${users[ID].id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(updateuser),
-            })
-                .then((response) => response.json())
-                .then((addUser) => {
-                console.log('Success');
-            })
-                .catch((error) => {
-                console.error('Error:', error);
             });
             let saveButton = document.getElementById("edit" + rowNumber);
             saveButton.setAttribute("value", "EDIT");
@@ -169,11 +159,10 @@ export class UserTable {
         }
     }
     sameRecord(rowElement, rowNumber) {
-        let cloneData = [];
         let editButton = document.getElementById("edit" + rowNumber);
         editButton.setAttribute("value", "SAVE");
         async function pass() {
-            await objUserTable.saveRecord({ rowElement, rowNumber, cloneData });
+            await objUserTable.saveRecord({ rowElement, rowNumber });
         }
         editButton.onclick = pass;
     }

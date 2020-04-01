@@ -1,24 +1,13 @@
 import { Role } from "./enum.js";
 export interface DataTypeOfUser {
-    first_name: string;
-    middle_name:string;
-    last_name : string;
-    name: string;
-    email:string;
-    phone:string;
-    role_id:Role;
-    address:string;
-    id : number;
-    customer_id :number;
-    // length:number;
-    // data : Array<string>;
-}
-export interface validateVar{
     firstName: string;
     middleName:string;
     lastName : string;
+    name: string;
     email:string;
     phone:string;
+    roleId:Role;
     address:string;
-    editedData:string[];
+    id : number;
+    customerId :number;
 }

@@ -4,14 +4,15 @@ import { error } from "./showError.js";
 import { addUserBtn } from "./addUser.js";
 import { DataTypeOfUser } from "./interface.js";
 import { urlData } from "./DataFetch.js";
+import { Role, Customers } from "./enum.js";
 
-class afterAdd{
+class AfterAdd{
     async saveFunc(rowElement:Node){
          let users:DataTypeOfUser[] =  await fetch(urlData)
       .then(resp=>{return(resp.json())})
 
       let rowNumber= users.length;
-        let result = await objValidation.formValidate(rowElement,rowNumber);
+        let result = await objValidation.formValidate();
         let selectRole:HTMLSelectElement = document.getElementById("drop")as HTMLSelectElement;
         let selectCustomer:HTMLSelectElement = document.getElementById("drop1")as HTMLSelectElement;
         let customerData =selectCustomer.value;
@@ -23,50 +24,42 @@ class afterAdd{
          }
          else{
              error.style.display = "none";
-             
-             
-                let firstName = (document.getElementsByClassName("inputData")[0]as HTMLInputElement).value;
-                let middleName = (document.getElementsByClassName("inputData")[1]as HTMLInputElement).value;
-                let lastName= (document.getElementsByClassName("inputData")[2]as HTMLInputElement).value;
-                let email = (document.getElementsByClassName("inputData")[3]as HTMLInputElement).value;
-                let phone = (document.getElementsByClassName("inputData")[4]as HTMLInputElement).value;
-                let address = (document.getElementsByClassName("inputData")[5]as HTMLInputElement).value;
-                let rollno;
+             let enteredData=[];
+             for(let i =0;i<6;i++){
+                 enteredData[i] = (document.getElementsByClassName("inputData")[i]as HTMLInputElement).value;
+                };
+             let rollno;
              if(roleData=='ADMIN'){
-                 rollno = 0;
+                 rollno = Role.ADMIN;
                 }
                 else if(roleData=="DEVELOPER"){
-                    rollno = 1;
+                    rollno = Role.DEVELOPER;
                 }
                 else{
-                    rollno = 2;
+                    rollno = Role.MANAGER;
                 }
                 let customerno;
         if(customerData=='AMAZON'){
-            customerno = 0;
+            customerno = Customers.AMAZON;
         }
         else if(customerData=='GOOGLE'){
-            customerno = 1;
+            customerno = Customers.GOOGLE;
         }
         else {
-            customerno = 2;
+            customerno = Customers.UDEMY;
         }
                 
                 let newUser = {
-                    "first_name" : firstName.trim(),
-                    "middle_name" : middleName.trim(),
-                    "last_name": lastName.trim(),
-                    "email" : email.trim(),
-                    "phone": phone.trim(),
-                    "address": address.trim(),
-                    "role_id" : rollno,
-                    "customer_id":customerno
+                    "firstName" : enteredData[0].trim(),
+                    "middleName" : enteredData[1].trim(),
+                    "lastName": enteredData[2].trim(),
+                    "email" : enteredData[3].trim(),
+                    "phone": enteredData[4].trim(),
+                    "address": enteredData[5].trim(),
+                    "roleId" : rollno,
+                    "customerId":customerno
                 }
-                
-                
-                console.log(newUser);
-                
-         fetch(`http://localhost:5000/CUops/saveUser`, {
+                await fetch(`http://localhost:5000/CUops/saveUser`, {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
@@ -83,7 +76,5 @@ class afterAdd{
         tableData?.removeChild(row)
         addUserBtn.disabled = false;
     }
-
-
 }
-export let objAfterAdd = new afterAdd();
+export let objAfterAdd = new AfterAdd();

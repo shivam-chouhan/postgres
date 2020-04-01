@@ -17,13 +17,13 @@ export class UserTable{
        for(let i=0;i<users.length;i++)
        {
            let row:HTMLTableRowElement = tableData.insertRow();
-           row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].first_name}</span>`
-                 row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].middle_name}</span>`
-                 row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].last_name}</span>`
-                 row.insertCell().innerHTML = `<span id = "customer${users[i].id}"> ${Customers[users[i].customer_id]}</span>`
+           row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].firstName}</span>`
+                 row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].middleName}</span>`
+                 row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].lastName}</span>`
+                 row.insertCell().innerHTML = `<span id = "customer${users[i].id}"> ${Customers[users[i].customerId]}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].email}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].phone}</span>`
-                 row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].role_id]}</span>`
+                 row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].roleId]}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].address}</span>`
                  row.insertCell().innerHTML = `<input type = "button" class = "w3-button" id = "edit${users[i].id}" value = "EDIT" >`;
                  row.insertCell().innerHTML = `<input type = "button" class = "w3-button deleteBtn" id = "delete${users[i].id}" value = "DELETE" >`;
@@ -34,10 +34,8 @@ export class UserTable{
 
     let table :HTMLTableElement= document.getElementById("userData") as HTMLTableElement;
     let current:number = objUserTable.currentRow(row);
-    let deleteUrl = `http://localhost:5000/deleteRow/getUsers/${idNo}`;
+    let deleteUrl = `http://localhost:5000/deleteRow/deleteUser/${idNo}`;
      fetch(deleteUrl)
-     .catch((error) => {
-        console.error('Error:', error);});
      table.deleteRow(current);
     
  }
@@ -48,7 +46,7 @@ export class UserTable{
        let editButton:HTMLButtonElement = document.getElementById("edit"+rowNumber) as HTMLButtonElement;
        editButton.setAttribute("value", "SAVE");
      async function  pass (){
-        await objUserTable.saveRecord({rowElement,rowNumber,cloneData});
+        await objUserTable.saveRecord({rowElement,rowNumber});
         
     }
        editButton.onclick = pass;
@@ -95,8 +93,8 @@ export class UserTable{
        let currentRow :number= ((rowElement.parentNode as HTMLTableElement).parentNode as HTMLTableRowElement).rowIndex-1;
        return currentRow;
    }
-   async saveRecord({ rowElement,rowNumber, cloneData }: {  rowElement:Node;rowNumber: number; cloneData: string[]; }){
-       let result = await objValidation.formValidate(rowElement,rowNumber);
+   async saveRecord({ rowElement,rowNumber}: {  rowElement:Node;rowNumber: number;}){
+       let result = await objValidation.formValidate();
        let selectRole:HTMLSelectElement = document.getElementById("drop")as HTMLSelectElement;
        let selectCustomer:HTMLSelectElement = document.getElementById("drop1")as HTMLSelectElement;
        let roleData = selectRole.value;
@@ -126,34 +124,34 @@ export class UserTable{
 
         let rollno;
         if(roleData=='ADMIN'){
-            rollno = 0;
+            rollno = Role.ADMIN;
         }
         else if(roleData=="DEVELOPER"){
-            rollno = 1;
+            rollno = Role.DEVELOPER;
         }
         else{
-             rollno = 2;
+             rollno = Role.MANAGER;
         }
         let customerno;
         if(customerData=='AMAZON'){
-            customerno = 0;
+            customerno = Customers.AMAZON;
         }
         else if(customerData=='GOOGLE'){
-            customerno = 1;
+            customerno = Customers.GOOGLE;
         }
         else {
-            customerno = 2;
+            customerno = Customers.UDEMY;
         }
 
         let updateuser = {
-            "first_name" : firstName,
-            "middle_name" : middleName,
-            "last_name": lastName,
+            "firstName" : firstName,
+            "middleName" : middleName,
+            "lastName": lastName,
             "email" : email,
             "phone": phone,
             "address": address,
-            "role_id": rollno,
-            "customer_id":customerno
+            "roleId": rollno,
+            "customerId":customerno
         }
 
 
@@ -185,11 +183,10 @@ export class UserTable{
     
   }
   sameRecord(rowElement:Node,rowNumber:number){
-    let cloneData:Array<string>=[];
     let editButton:HTMLButtonElement = document.getElementById("edit"+rowNumber) as HTMLButtonElement;
     editButton.setAttribute("value", "SAVE");
   async function  pass (){
-     await objUserTable.saveRecord({rowElement,rowNumber,cloneData});}
+     await objUserTable.saveRecord({rowElement,rowNumber});}
     editButton.onclick = pass;
     }
 
