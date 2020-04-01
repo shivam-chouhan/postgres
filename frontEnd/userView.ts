@@ -20,9 +20,10 @@ export class UserTable{
            row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].first_name}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].middle_name}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].last_name}</span>`
+                 row.insertCell().innerHTML = `<span id = "customer${users[i].customer_id}"> ${[users[i].name]}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].email}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].phone}</span>`
-                 row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].role]}</span>`
+                 row.insertCell().innerHTML = `<span id = "role${users[i].id}"> ${Role[users[i].role_id]}</span>`
                  row.insertCell().innerHTML = `<span class = "element${users[i].id}"> ${users[i].address}</span>`
                  row.insertCell().innerHTML = `<input type = "button" class = "w3-button" id = "edit${users[i].id}" value = "EDIT" >`;
                  row.insertCell().innerHTML = `<input type = "button" class = "w3-button deleteBtn" id = "delete${users[i].id}" value = "DELETE" >`;
