@@ -5,7 +5,7 @@ export let router1 = express.Router();
 router1.get('/users',(req,res)=>{
   pool.query(`select * from users 
   join customers on customer=customer_id
-  join role on role_id=key`)
+  join role on role_id=key order by id asc`)
                .then((result )=>
                {
                  res.json(result.rows);
