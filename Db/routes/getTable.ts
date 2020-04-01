@@ -2,7 +2,7 @@ import express from "express";
 import { pool } from "../server.js";
 export let router1 = express.Router();
 
-router1.get('/users',(req,res)=>{
+router1.get('/getUsers',(req,res)=>{
   pool.query(`select * from users 
   join customers on customer=customer_id
   join role on role_id=key order by id asc`)
@@ -11,7 +11,7 @@ router1.get('/users',(req,res)=>{
                  res.json(result.rows);
                });
 })
-router1.get('/customers',(req,res)=>{
+router1.get('/getCustomers',(req,res)=>{
   pool.query(`select * from customers`)
              .then((result)=>
              {
