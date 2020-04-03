@@ -1,0 +1,30 @@
+.w3-button
+{
+    text-decoration: greenyellow;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 140, 255);
+    stroke-opacity: 50%;
+    border-radius: 20px;
+}
+.load-Btn{
+    border-collapse: collapse;
+    margin-left: 50%;
+    margin-right: 50%;
+    margin-top: 20%;
+    color: rgb(255, 255, 255);
+    background-color: rgb(49, 182, 49);
+    border-radius: 20px;
+}
+.refresh{
+    margin: auto;
+    margin-top: 1%;
+
+}
+.w3-table{
+    margin-top: 1%;
+}
+.invalid{
+    color: darkred;
+    font-size: small;
+    
+}
